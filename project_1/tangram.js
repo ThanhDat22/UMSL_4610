@@ -95,6 +95,55 @@ window.addEventListener("load", function() {
     }
   });
 
+  // Fine-tune movement: arrow buttons move the selected piece 1px at a time.
+  document.getElementById("moveLeftBtn").addEventListener("click", function() {
+    if (selectedPiece) {
+      let currentLeft = parseInt(selectedPiece.style.left, 10);
+      if (isNaN(currentLeft)) {
+        currentLeft = parseInt(window.getComputedStyle(selectedPiece).left, 10) || 0;
+      }
+      selectedPiece.style.left = (currentLeft - 1) + "px";
+    } else {
+      alert("Please select a piece to move.");
+    }
+  });
+
+  document.getElementById("moveRightBtn").addEventListener("click", function() {
+    if (selectedPiece) {
+      let currentLeft = parseInt(selectedPiece.style.left, 10);
+      if (isNaN(currentLeft)) {
+        currentLeft = parseInt(window.getComputedStyle(selectedPiece).left, 10) || 0;
+      }
+      selectedPiece.style.left = (currentLeft + 1) + "px";
+    } else {
+      alert("Please select a piece to move.");
+    }
+  });
+
+  document.getElementById("moveUpBtn").addEventListener("click", function() {
+    if (selectedPiece) {
+      let currentTop = parseInt(selectedPiece.style.top, 10);
+      if (isNaN(currentTop)) {
+        currentTop = parseInt(window.getComputedStyle(selectedPiece).top, 10) || 0;
+      }
+      selectedPiece.style.top = (currentTop - 1) + "px";
+    } else {
+      alert("Please select a piece to move.");
+    }
+  });
+
+  document.getElementById("moveDownBtn").addEventListener("click", function() {
+    if (selectedPiece) {
+      let currentTop = parseInt(selectedPiece.style.top, 10);
+      if (isNaN(currentTop)) {
+        currentTop = parseInt(window.getComputedStyle(selectedPiece).top, 10) || 0;
+      }
+      selectedPiece.style.top = (currentTop + 1) + "px";
+    } else {
+      alert("Please select a piece to move.");
+    }
+  });
+
   // Dropdown change event: when the user selects a piece from the list,
   // mark that piece as selected.
   dropdown.addEventListener("change", function() {
