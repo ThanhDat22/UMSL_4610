@@ -49,6 +49,11 @@ window.addEventListener("load", function() {
       // Add visual indicator for selected piece
       this.classList.add("selected");
 
+      // Update dropdown to select this piece
+      if (dropdown) {
+        dropdown.value = this.id;
+      }
+
       // Calculate offset between mouse and piece's top-left corner
       const rect = this.getBoundingClientRect();
       offsetX = e.clientX - rect.left;
@@ -90,6 +95,20 @@ window.addEventListener("load", function() {
     }
   });
 
+  // Dropdown change event: when the user selects a piece from the list,
+  // mark that piece as selected.
+  dropdown.addEventListener("change", function() {
+    // Remove selection from all pieces
+    pieces.forEach(p => p.classList.remove("selected"));
+    if (this.value) {
+      const piece = document.getElementById(this.value);
+      if (piece) {
+        selectedPiece = piece;
+        piece.classList.add("selected");
+      }
+    }
+  });
+
   // Initial population of the dropdown list
   updateDropdown();
 
@@ -104,13 +123,17 @@ window.addEventListener("load", function() {
       option.textContent = (piece.dataset.name || "Piece") + ": " + (piece.dataset.rotation || 0) + "°";
       dropdown.appendChild(option);
     });
+    // If a piece is currently selected, set the dropdown's value accordingly
+    if (selectedPiece) {
+      dropdown.value = selectedPiece.id;
+    }
   }
 
   // Make updateDropdown globally accessible for later calls
   window.updateDropdown = updateDropdown;
 });
 
-// Helper function to rotate a piece and update the dropdown list
+// Helper function to rotate a piece by a given angle increment and update dropdown
 function rotatePiece(piece, angle) {
   let currentRotation = parseInt(piece.dataset.rotation, 10) || 0;
   currentRotation = (currentRotation + angle) % 360;
