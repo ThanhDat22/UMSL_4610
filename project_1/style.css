@@ -120,7 +120,13 @@
   border: 2px solid blue;  
 }
 
+/* --- New styles for controls --- */
 .controls {
   text-align: center;
   margin-top: 20px;
+}
+
+/* --- New styles for the selected piece --- */
+.selected {
+  outline: 2px dashed red;
 }

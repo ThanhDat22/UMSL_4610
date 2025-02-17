@@ -14,62 +14,64 @@
 </head>
 <body>
 
-<h1 style="text-align:center;">Tangram Puzzle</h1>
-
-<!-- Flex container holding the puzzle on the left and the reference image on the right -->
-<div class="container-flex">
-
-  <!-- Left: Tangram puzzle built with CSS shapes -->
-  <div class="puzzle-container">
-    <!-- 2 large triangles -->
-    <div class="triangle-large-1"></div>
-    <div class="triangle-large-2"></div>
-    
-    <!-- 1 medium triangle -->
-    <div class="triangle-medium"></div>
-    
-    <!-- 2 small triangles -->
-    <div class="triangle-small-1"></div>
-    <div class="triangle-small-2"></div>
-    
-    <!-- 1 square -->
-    <div class="square"></div>
-    
-    <!-- 1 parallelogram -->
-    <div class="parallelogram"></div>
+  <h1 style="text-align:center;">Tangram Puzzle</h1>
+  
+  <!-- Flex container holding the puzzle on the left and the reference image on the right -->
+  <div class="container-flex">
+    <!-- Left: Tangram puzzle built with CSS shapes -->
+    <div class="puzzle-container">
+      <!-- 2 large triangles -->
+      <div class="triangle-large-1"></div>
+      <div class="triangle-large-2"></div>
+      
+      <!-- 1 medium triangle -->
+      <div class="triangle-medium"></div>
+      
+      <!-- 2 small triangles -->
+      <div class="triangle-small-1"></div>
+      <div class="triangle-small-2"></div>
+      
+      <!-- 1 square -->
+      <div class="square"></div>
+      
+      <!-- 1 parallelogram -->
+      <div class="parallelogram"></div>
+    </div>
+  
+    <!-- Right: Display your tangram.png image -->
+    <div class="image-container">
+      <img src="tangram.png" alt="Tangram Reference" class="tangram-image">
+    </div>
   </div>
-
-  <!-- Right: Display your tangram.png image -->
-  <div class="image-container">
-    <img src="tangram.png" alt="Tangram Reference" class="tangram-image">
+  
+  <!-- Controls (Button Group) -->
+  <div class="controls">
+    <div class="btn-group" role="group" aria-label="Tangram Controls">
+      <button type="button" class="btn btn-default" id="rotateBtn">
+        <span class="glyphicon glyphicon-repeat"></span>
+      </button>
+      <button type="button" class="btn btn-default" id="moveLeftBtn">
+        <span class="glyphicon glyphicon-arrow-left"></span>
+      </button>
+      <button type="button" class="btn btn-default" id="moveRightBtn">
+        <span class="glyphicon glyphicon-arrow-right"></span>
+      </button>
+      <button type="button" class="btn btn-default" id="moveUpBtn">
+        <span class="glyphicon glyphicon-arrow-up"></span>
+      </button>
+      <button type="button" class="btn btn-default" id="moveDownBtn">
+        <span class="glyphicon glyphicon-arrow-down"></span>
+      </button>
+    </div>
   </div>
-
-</div>
-
-<div class="controls">
-  <div class="btn-group" role="group" aria-label="Tangram Controls" ">
-    <button type="button" class="btn btn-default" id="rotateBtn">
-      <span class="glyphicon glyphicon-repeat"></span>
-    </button>
-    <button type="button" class="btn btn-default" id="moveLeftBtn">
-      <span class="glyphicon glyphicon-arrow-left"></span>
-    </button>
-    <button type="button" class="btn btn-default" id="moveRightBtn">
-      <span class="glyphicon glyphicon-arrow-right"></span>
-    </button>
-    <button type="button" class="btn btn-default" id="moveUpBtn">
-      <span class="glyphicon glyphicon-arrow-up"></span>
-    </button>
-    <button type="button" class="btn btn-default" id="moveDownBtn">
-      <span class="glyphicon glyphicon-arrow-down"></span>
-    </button>
+  
+  <!-- Dropdown list to display rotation angles -->
+  <div class="controls" style="margin-top:20px; text-align:center;">
+    <select id="angleDropdown">
+      <option value="">-- Piece Rotations --</option>
+    </select>
   </div>
-</div>
-
-
-
-
-
-<script src="tangram.js"></script>
-</body>
+  
+  <script src="tangram.js"></script>
+  </body>
 </html>

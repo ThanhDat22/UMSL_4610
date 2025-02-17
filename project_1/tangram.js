@@ -1,72 +1,123 @@
-// tangram.js
+// Global variables for dragging and selection
+let selectedPiece = null;
+let dragging = false;
+let offsetX = 0;
+let offsetY = 0;
 
-// Wait until the DOM content is fully loaded
 window.addEventListener("load", function() {
-  // Select all pieces within the puzzle container
+  // Get all puzzle pieces inside the container
   const pieces = document.querySelectorAll(".puzzle-container > div");
 
-  // Add mousedown (to start drag) and dblclick (to rotate) event listeners to each piece
-  pieces.forEach(function(piece) {
-    // Initialize a data attribute to store the current rotation (optional for rotation)
-    piece.dataset.rotation = 0;
-    // Ensure the piece is absolutely positioned (it should already be set in CSS)
-    piece.style.position = "absolute";
-    // Attach event listeners for dragging and rotation
-    piece.addEventListener("mousedown", startDrag);
-    piece.addEventListener("dblclick", rotatePiece);
+  // Mapping from class names to piece names (with color info)
+  const pieceNames = {
+    "triangle-large-1": "Large Triangle 1 (Purple)",
+    "triangle-large-2": "Large Triangle 2 (Blue)",
+    "triangle-medium": "Medium Triangle (Violet)",
+    "triangle-small-1": "Small Triangle 1 (Orangered)",
+    "triangle-small-2": "Small Triangle 2 (Cadetblue)",
+    "square": "Square (Darkgreen)",
+    "parallelogram": "Parallelogram (Orange)"
+  };
+
+  // Get the dropdown element (assumed to be in the HTML)
+  const dropdown = document.getElementById("angleDropdown");
+
+  // Initialize each piece and create dropdown options
+  pieces.forEach(function(piece, index) {
+    piece.dataset.rotation = 0; // starting rotation (in degrees)
+    piece.style.position = "absolute"; // ensure absolute positioning
+
+    // Assign a unique id if not already set
+    if (!piece.id) {
+      piece.id = "piece-" + index;
+    }
+
+    // Determine piece name by checking its class list
+    for (let key in pieceNames) {
+      if (piece.classList.contains(key)) {
+        piece.dataset.name = pieceNames[key];
+        break;
+      }
+    }
+
+    // Attach event listeners for dragging and selection
+    piece.addEventListener("mousedown", function(e) {
+      selectedPiece = this;
+      dragging = true;
+      // Remove existing selection indicator from all pieces
+      pieces.forEach(p => p.classList.remove("selected"));
+      // Add visual indicator for selected piece
+      this.classList.add("selected");
+
+      // Calculate offset between mouse and piece's top-left corner
+      const rect = this.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+
+      e.preventDefault();
+    });
+
+    // Optional: rotate the piece on double-click
+    piece.addEventListener("dblclick", function(e) {
+      rotatePiece(this, 15);
+      e.stopPropagation();
+    });
   });
 
-  let selectedPiece = null;
-  let offsetX = 0, offsetY = 0;
-
-  // Called when the user presses the mouse button down on a piece
-  function startDrag(e) {
-    selectedPiece = this;
-    // Bring the piece to the front
-    selectedPiece.style.zIndex = 1000;
-    // Calculate the offset from the piece's top-left corner to the mouse position
-    const rect = selectedPiece.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-    // Listen for mousemove events on the document to drag the piece
-    document.addEventListener("mousemove", dragPiece);
-    // Prevent default behavior (like text selection)
-    e.preventDefault();
-  }
-
-  // Called on every mousemove event while dragging
-  function dragPiece(e) {
-    if (!selectedPiece) return;
-    // Get the puzzle container's bounding rectangle to calculate the position relative to it
-    const container = document.querySelector(".puzzle-container");
-    const containerRect = container.getBoundingClientRect();
-    // Compute the new left and top positions
-    const newLeft = e.clientX - containerRect.left - offsetX;
-    const newTop = e.clientY - containerRect.top - offsetY;
-    // Update the piece's position
-    selectedPiece.style.left = newLeft + "px";
-    selectedPiece.style.top = newTop + "px";
-  }
-
-  // Called when the user releases the mouse button
-  function endDrag(e) {
-    // Remove the mousemove event listener since dragging is finished
-    document.removeEventListener("mousemove", dragPiece);
-    // Optionally, reset the z-index
-    if (selectedPiece) {
-      selectedPiece.style.zIndex = 1;
+  // Update position while dragging
+  document.addEventListener("mousemove", function(e) {
+    if (dragging && selectedPiece) {
+      const container = document.querySelector(".puzzle-container");
+      const containerRect = container.getBoundingClientRect();
+      const newLeft = e.clientX - containerRect.left - offsetX;
+      const newTop = e.clientY - containerRect.top - offsetY;
+      selectedPiece.style.left = newLeft + "px";
+      selectedPiece.style.top = newTop + "px";
     }
-    selectedPiece = null;
+  });
+
+  // Stop dragging on mouseup
+  document.addEventListener("mouseup", function() {
+    dragging = false;
+  });
+
+  // Rotate button functionality: rotate selected piece by 15°
+  document.getElementById("rotateBtn").addEventListener("click", function() {
+    if (selectedPiece) {
+      rotatePiece(selectedPiece, 15);
+    } else {
+      alert("Please select a piece to rotate.");
+    }
+  });
+
+  // Initial population of the dropdown list
+  updateDropdown();
+
+  // Function to update dropdown list with current rotation angles for each piece
+  function updateDropdown() {
+    if (!dropdown) return;
+    // Clear existing options, then add a placeholder
+    dropdown.innerHTML = '<option value="">-- Piece Rotations --</option>';
+    pieces.forEach(piece => {
+      const option = document.createElement("option");
+      option.value = piece.id;
+      option.textContent = (piece.dataset.name || "Piece") + ": " + (piece.dataset.rotation || 0) + "°";
+      dropdown.appendChild(option);
+    });
   }
 
-  // Listen for mouseup events on the entire document
-  document.addEventListener("mouseup", endDrag);
-
-  // Optional: Rotate the piece by 15° on double-click
-  function rotatePiece(e) {
-    let currentRotation = parseInt(this.dataset.rotation, 10) || 0;
-    currentRotation = (currentRotation + 15) % 360;
-    this.dataset.rotation = currentRotation;
-    this.style.transform = "rotate(" + currentRotation + "deg)";
-  }
+  // Make updateDropdown globally accessible for later calls
+  window.updateDropdown = updateDropdown;
 });
+
+// Helper function to rotate a piece and update the dropdown list
+function rotatePiece(piece, angle) {
+  let currentRotation = parseInt(piece.dataset.rotation, 10) || 0;
+  currentRotation = (currentRotation + angle) % 360;
+  piece.dataset.rotation = currentRotation;
+  piece.style.transform = "rotate(" + currentRotation + "deg)";
+  // Update the dropdown list immediately
+  if (window.updateDropdown) {
+    window.updateDropdown();
+  }
+}
