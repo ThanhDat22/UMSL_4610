@@ -6,6 +6,11 @@
   <title>Tangram Puzzle (Side by Side)</title>
   <!-- Link to your external CSS file -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Link to Bootstrap CSS for styling -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
 </head>
 <body>
 
@@ -40,6 +45,31 @@
   </div>
 
 </div>
+
+<div class="controls">
+  <div class="btn-group" role="group" aria-label="Tangram Controls" ">
+    <button type="button" class="btn btn-default" id="rotateBtn">
+      <span class="glyphicon glyphicon-repeat"></span>
+    </button>
+    <button type="button" class="btn btn-default" id="moveLeftBtn">
+      <span class="glyphicon glyphicon-arrow-left"></span>
+    </button>
+    <button type="button" class="btn btn-default" id="moveRightBtn">
+      <span class="glyphicon glyphicon-arrow-right"></span>
+    </button>
+    <button type="button" class="btn btn-default" id="moveUpBtn">
+      <span class="glyphicon glyphicon-arrow-up"></span>
+    </button>
+    <button type="button" class="btn btn-default" id="moveDownBtn">
+      <span class="glyphicon glyphicon-arrow-down"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+
 <script src="tangram.js"></script>
 </body>
 </html>

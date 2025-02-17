@@ -119,3 +119,8 @@
   height: 400px;   /* Set height to match the puzzle container */
   border: 2px solid blue;  
 }
+
+.controls {
+  text-align: center;
+  margin-top: 20px;
+}
