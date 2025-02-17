@@ -4,13 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tangram Puzzle (Side by Side)</title>
-  <!-- Link to your external CSS file -->
+  <!-- Link to  external CSS file -->
   <link rel="stylesheet" href="style.css">
-
   <!-- Link to Bootstrap CSS for styling -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-
 </head>
 <body>
 
@@ -38,7 +35,7 @@
       <div class="parallelogram"></div>
     </div>
   
-    <!-- Right: Display your tangram.png image -->
+    <!-- Right: Display tangram.png image -->
     <div class="image-container">
       <img src="tangram.png" alt="Tangram Reference" class="tangram-image">
     </div>
@@ -62,6 +59,10 @@
       <button type="button" class="btn btn-default" id="moveDownBtn">
         <span class="glyphicon glyphicon-arrow-down"></span>
       </button>
+      <!-- Animate Button -->
+      <button type="button" class="btn btn-default" id="animateBtn">
+        <span class="glyphicon glyphicon-film"></span>
+      </button>
     </div>
   </div>
   
@@ -72,6 +73,9 @@
     </select>
   </div>
   
+  <!-- Include jQuery (required for animate) before tangram.js -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="tangram.js"></script>
-  </body>
+</body>
 </html>
+
