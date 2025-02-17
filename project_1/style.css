@@ -1,91 +1,121 @@
-/* Container for the puzzle */
+/* Created by Thanh Dat Nguyen (tnrbf@umsystem.edu) on 2025-02-17 */
+
+/* Last updated by Thanh Dat Nguyen (tnrbf@umsystem.edu) on 2025-02-17 */
+
+/* --- Original styles for the tangram puzzle --- */
+
+/* Container for the puzzle (400×400 box) */
 .puzzle-container {
-    width: 400px;
-    height: 400px;
-    border: 2px solid blue;  /* Outer blue box */
-    margin: 20px auto;       /* Centers on the page */
-    position: relative;      /* Allows absolutely positioned children */
-    box-sizing: border-box;
-  }
-  
-  /* Large Triangle #1 (purple) */
-  .triangle-large-1 {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 0;
-    height: 0;
-    border-left: 100px solid transparent;
-    border-right: 100px solid transparent;
-    border-bottom: 150px solid #8B008B; 
-  }
-  
-  /* Large Triangle #2 (blue) */
-  .triangle-large-2 {
-    position: absolute;
-    top: 20px;
-    left: 200px;
-    width: 0;
-    height: 0;
-    border-left: 100px solid transparent;
-    border-right: 100px solid transparent;
-    border-bottom: 150px solid #1E90FF;
-  }
-  
-  /* Medium Triangle (violet) */
-  .triangle-medium {
-    position: absolute;
-    top: 180px;
-    left: 60px;
-    width: 0;
-    height: 0;
-    border-left: 60px solid transparent;
-    border-right: 60px solid transparent;
-    border-bottom: 80px solid #663399;
-  }
-  
-  /* Small Triangle #1 (orangered) */
-  .triangle-small-1 {
-    position: absolute;
-    top: 180px;
-    left: 200px;
-    width: 0;
-    height: 0;
-    border-left: 40px solid transparent;
-    border-right: 40px solid transparent;
-    border-bottom: 60px solid orangered;
-  }
-  
-  /* Small Triangle #2 (cadblue) */
-  .triangle-small-2 {
-    position: absolute;
-    top: 280px;
-    left: 20px;
-    width: 0;
-    height: 0;
-    border-left: 40px solid transparent;
-    border-right: 40px solid transparent;
-    border-bottom: 60px solid #5F9EA0;
-  }
-  
-  /* Square (darkgreen) */
-  .square {
-    position: absolute;
-    top: 280px;
-    left: 140px;
-    width: 60px;
-    height: 60px;
-    background-color: darkgreen;
-  }
-  
-  /* Parallelogram (orange) */
-  .parallelogram {
-    position: absolute;
-    top: 280px;
-    left: 220px;
-    width: 60px;
-    height: 40px;
-    background-color: #FFA500;
-    transform: skewX(20deg);
-  }
-  
+  width: 400px;
+  height: 400px;
+  border: 2px solid blue;
+  position: relative; /* Child pieces positioned relative to this container */
+  box-sizing: border-box;
+}
+
+/* Shape definitions */
+/* Large Triangle #1 (purple) */
+.triangle-large-1 {
+  position: absolute;
+  top: 120px;
+  left: -40px;
+  width: 0px;
+  height: 0;
+  transform: rotate(90deg);
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-bottom: 160px solid #8B008B;
+}
+
+/* Large Triangle #2 (blue) */
+.triangle-large-2 {
+  position: relative;
+  top: 40px;
+  left: 40px;
+  width: 0;
+  height: 0;
+  transform: rotate(180deg);
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-bottom: 160px solid #1E90FF;
+}
+
+/* Medium Triangle (violet) */
+.triangle-medium {
+  position: absolute;
+  top: 265px;
+  left: 209px;
+  width: 0;
+  height: 0;
+  transform: rotate(135deg);
+  border-left: 112px solid transparent;
+  border-right: 112px solid transparent;
+  border-bottom: 112px solid #663399;
+}
+
+/* Small Triangle #1 (orangered) */
+.triangle-small-1 {
+  position: absolute;
+  top: 80px;
+  left: 238px;
+  width: 0;
+  height: 0;
+  transform: rotate(-90deg);
+  border-left: 81px solid transparent;
+  border-right: 81px solid transparent;
+  border-bottom: 81px solid orangered;
+}
+
+/* Small Triangle #2 (cadetblue) */
+.triangle-small-2 {
+  position: absolute;
+  top: 200px;
+  left: 119px;
+  width: 0;
+  height: 0;
+  border-left: 81px solid transparent;
+  border-right: 81px solid transparent;
+  border-bottom: 81px solid #5F9EA0;
+}
+
+/* Square (darkgreen) */
+.square {
+  position: absolute;
+  top: 143px;
+  left: 223px;
+  width: 115px;
+  height: 115px;
+  transform: rotate(45deg);
+  background-color: darkgreen;
+}
+
+/* Parallelogram (orange) */
+.parallelogram {
+  position: absolute;
+  top: 280px;
+  left: 80px;
+  width: 161px;
+  height: 80px;
+  background-color: #FFA500;
+  transform: skewX(-45deg);
+}
+
+/* --- New styles for side-by-side layout --- */
+
+/* Flex container to hold puzzle and image side by side */
+.container-flex {
+  display: flex;
+  justify-content: center;  /* centers items horizontally */
+  align-items: flex-start;  /* aligns items at the top */
+  gap: 20px;                /* space between the puzzle and the image */
+  margin: 20px;
+}
+
+/* Image container (optional styling) */
+
+/* Style for the tangram.png image */
+.tangram-image {
+  width: auto;  /* Adjust as needed */
+  height: 400px;   /* Set height to match the puzzle container */
+  border: 2px solid blue;  
+}

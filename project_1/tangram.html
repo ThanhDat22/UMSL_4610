@@ -2,32 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Tangram Puzzle (Using style.css)</title>
-  <!-- Link to the external CSS file -->
+  <title>Tangram Puzzle (Side by Side)</title>
+  <!-- Link to your external CSS file -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h1 style="text-align:center;">Tangram Puzzle</h1>
 
-<div class="puzzle-container">
-  <!-- 2 large triangles -->
-  <div class="triangle-large-1"></div>
-  <div class="triangle-large-2"></div>
-  
-  <!-- 1 medium triangle -->
-  <div class="triangle-medium"></div>
-  
-  <!-- 2 small triangles -->
-  <div class="triangle-small-1"></div>
-  <div class="triangle-small-2"></div>
-  
-  <!-- 1 square -->
-  <div class="square"></div>
-  
-  <!-- 1 parallelogram -->
-  <div class="parallelogram"></div>
-</div>
+<!-- Flex container holding the puzzle on the left and the reference image on the right -->
+<div class="container-flex">
 
+  <!-- Left: Tangram puzzle built with CSS shapes -->
+  <div class="puzzle-container">
+    <!-- 2 large triangles -->
+    <div class="triangle-large-1"></div>
+    <div class="triangle-large-2"></div>
+    
+    <!-- 1 medium triangle -->
+    <div class="triangle-medium"></div>
+    
+    <!-- 2 small triangles -->
+    <div class="triangle-small-1"></div>
+    <div class="triangle-small-2"></div>
+    
+    <!-- 1 square -->
+    <div class="square"></div>
+    
+    <!-- 1 parallelogram -->
+    <div class="parallelogram"></div>
+  </div>
+
+  <!-- Right: Display your tangram.png image -->
+  <div class="image-container">
+    <img src="tangram.png" alt="Tangram Reference" class="tangram-image">
+  </div>
+
+</div>
+<script src="tangram.js"></script>
 </body>
 </html>
