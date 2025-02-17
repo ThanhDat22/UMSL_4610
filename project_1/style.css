@@ -29,7 +29,7 @@
 
 /* Large Triangle #2 (blue) */
 .triangle-large-2 {
-  position: relative;
+  position: absolute;
   top: 40px;
   left: 40px;
   width: 0;
@@ -97,7 +97,7 @@
   width: 161px;
   height: 80px;
   background-color: #FFA500;
-  transform: skewX(-45deg);
+  transform: skewX(315deg);
 }
 
 /* --- New styles for side-by-side layout --- */
