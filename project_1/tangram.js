@@ -1,3 +1,7 @@
+// Created by Thanh Dat Nguyen (tnrbf@umsystem.edu) on 2025-02-17 
+
+// Last updated by Thanh Dat Nguyen (tnrbf@umsystem.edu) on 2025-03-08 
+
 // Global variables for dragging and selection
 let selectedPiece = null;
 let dragging = false;
@@ -22,17 +26,17 @@ window.addEventListener("load", function() {
   // Get the dropdown element
   const dropdown = document.getElementById("angleDropdown");
 
-  // Initialize each piece: record its original position and set up events
+  // Initialize each piece, record its original position, and create dropdown options
   pieces.forEach(function(piece, index) {
-    piece.dataset.rotation = 0; // starting rotation in degrees
+    piece.dataset.rotation = 0; // starting rotation (in degrees)
     piece.style.position = "absolute"; // ensure absolute positioning
 
-    // Assign a unique id if not set
+    // Assign a unique id if not already set
     if (!piece.id) {
       piece.id = "piece-" + index;
     }
 
-    // Determine piece name based on class
+    // Determine piece name by checking its class list
     for (let key in pieceNames) {
       if (piece.classList.contains(key)) {
         piece.dataset.name = pieceNames[key];
@@ -40,7 +44,7 @@ window.addEventListener("load", function() {
       }
     }
 
-    // Record the original (destination) position from computed style
+    // Record the original (destination) position from the computed style
     const computedStyle = window.getComputedStyle(piece);
     piece.dataset.originalLeft = parseInt(computedStyle.left, 10) || 0;
     piece.dataset.originalTop = parseInt(computedStyle.top, 10) || 0;
@@ -49,12 +53,12 @@ window.addEventListener("load", function() {
     piece.addEventListener("mousedown", function(e) {
       selectedPiece = this;
       dragging = true;
-      // Remove selection indicator from all pieces and reset z-index
+      // Remove existing selection indicator from all pieces and reset z-index
       pieces.forEach(p => {
         p.classList.remove("selected");
         p.style.zIndex = 1;
       });
-      // Mark this piece as selected and bring it to the front
+      // Add visual indicator for selected piece and bring it to front
       this.classList.add("selected");
       this.style.zIndex = 1000;
 
@@ -71,7 +75,7 @@ window.addEventListener("load", function() {
       e.preventDefault();
     });
 
-    // Optional: rotate on double-click
+    // Optional: rotate the piece on double-click
     piece.addEventListener("dblclick", function(e) {
       rotatePiece(this, 15);
       e.stopPropagation();
@@ -95,7 +99,7 @@ window.addEventListener("load", function() {
     dragging = false;
   });
 
-  // Rotate button: rotate selected piece by 15°
+  // Rotate button functionality: rotate selected piece by 15°
   document.getElementById("rotateBtn").addEventListener("click", function() {
     if (selectedPiece) {
       rotatePiece(selectedPiece, 15);
@@ -153,18 +157,18 @@ window.addEventListener("load", function() {
     }
   });
 
-  // Animate button: animate selected piece from current to original position
+  // Animate button functionality: animate selected piece from current to destination position
   document.getElementById("animateBtn").addEventListener("click", function() {
     if (selectedPiece) {
-      // Get original coordinates from dataset
+      // Get destination coordinates from the dataset
       let destLeft = parseInt(selectedPiece.dataset.originalLeft, 10);
       let destTop = parseInt(selectedPiece.dataset.originalTop, 10);
-      // Use jQuery animate to move piece smoothly over 1 second
+      // Use jQuery animate to move the piece smoothly
       $(selectedPiece).animate({
         left: destLeft + "px",
         top: destTop + "px"
       }, 1000, function() {
-        // Optionally update dropdown after animation
+        // After animation, update dropdown (and remove selection indicator if desired)
         updateDropdown();
       });
     } else {
@@ -172,8 +176,9 @@ window.addEventListener("load", function() {
     }
   });
 
-  // Dropdown change event: when the user selects a piece from the list, mark it as selected.
+  // Dropdown change event: when the user selects a piece from the list, mark that piece as selected.
   dropdown.addEventListener("change", function() {
+    // Remove selection from all pieces and reset their z-index
     pieces.forEach(p => {
       p.classList.remove("selected");
       p.style.zIndex = 1;
@@ -194,6 +199,7 @@ window.addEventListener("load", function() {
   // Function to update dropdown list with current rotation angles for each piece
   function updateDropdown() {
     if (!dropdown) return;
+    // Clear existing options, then add a placeholder
     dropdown.innerHTML = '<option value="">-- Piece Rotations --</option>';
     pieces.forEach(piece => {
       const option = document.createElement("option");
@@ -201,6 +207,7 @@ window.addEventListener("load", function() {
       option.textContent = (piece.dataset.name || "Piece") + ": " + (piece.dataset.rotation || 0) + "°";
       dropdown.appendChild(option);
     });
+    // If a piece is currently selected, set the dropdown's value accordingly
     if (selectedPiece) {
       dropdown.value = selectedPiece.id;
     }
@@ -216,6 +223,7 @@ function rotatePiece(piece, angle) {
   currentRotation = (currentRotation + angle) % 360;
   piece.dataset.rotation = currentRotation;
   piece.style.transform = "rotate(" + currentRotation + "deg)";
+  // Update the dropdown list immediately
   if (window.updateDropdown) {
     window.updateDropdown();
   }
